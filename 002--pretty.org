@@ -93,6 +93,9 @@
              (list "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
               "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
          (org-latex-export-to-pdf))'
-    EOF
   #+end_src
   [[file:002--01.png][file:./002--01.png]]
+
+#+BEGIN_SRC python
+import matplotlib
+#+END_SRC

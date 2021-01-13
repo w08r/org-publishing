@@ -25,6 +25,7 @@ docker run --rm -v $PWD:/org w08r/org-publishing:0.0.2 \
   - [[file:./001--hello-world.org][Hello, World!]]
   - [[file:./002--pretty.org][Pretty, oh so pretty...]]
 ** Part 2 -- Reproducible Research
+  - [[file:./011--py-pie.org][Py pie]]
 ** Part 3 -- Presentations with Beamer
 * Contributions
   Contributions are welcome, please open an issue for discussion. Please be nice.

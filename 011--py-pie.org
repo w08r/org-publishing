@@ -1,0 +1,87 @@
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmonofont{SourceCodePro-Regular}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage{garamondx}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \usepackage{fancyvrb}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \usepackage[x11names,dvipsnames,table]{xcolor} %for use in color links
+#+LATEX_HEADER: \usepackage{colortbl}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \rowcolors{1}{white}{Wheat1}
+#+LATEX_HEADER: \setlength\parindent{0pt}
+#+LATEX_HEADER: \setlength\parskip{1em}
+#+LATEX_HEADER: \rhead{John Doe Inc.}
+#+LATEX_HEADER: \fancyhead[L]{\leftmark}
+#+LATEX_HEADER: \fancyfoot[C]{}
+#+LATEX_HEADER: \fancyfoot[LO]{}
+#+LATEX_HEADER: \fancyfoot[R]{\thepage}
+#+LATEX_HEADER: \usepackage{lipsum}
+#+LATEX_HEADER: \usemintedstyle{solarized-light}
+#+LATEX_HEADER: \definecolor{mbg}{rgb}{.93,.91,.83}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepgfplotslibrary{groupplots,dateplot}
+#+LATEX_HEADER: \usetikzlibrary{patterns,shapes.arrows}
+#+LATEX_HEADER: \pgfplotsset{compat=newest}
+#+LATEX_HEADER: \usepackage{lipsum}
+
+#+AUTHOR: John Doe
+#+TITLE: Py pie
+
+* Py-pie-demo
+
+This is a demo of using *Python* is ~Org~ to generate a *Pie Chart*.
+
+Note, for the \LaTeX{} output to work correctly, ensure the `%''s are
+correctly escaped in the python code.
+
+#+ATTR_LaTeX: :float nil :options fontsize=\tiny,frame=lines,bgcolor=mbg,linenos,xleftmargin=20pt,commentstyle=\bfseries
+#+BEGIN_SRC python :exports both :python python3
+  import matplotlib.pyplot as plt
+
+  # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+  labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+  sizes = [15, 30, 45, 10]
+  explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+
+  plt.style.use("ggplot")
+  plt.axis("off")
+  fig1, ax1 = plt.subplots()
+
+  ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f\\%%',
+          shadow=True, startangle=90)
+  ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+  ax1.set_ylim(ymin=-1.5, ymax=1.5)
+  ax1.set_xlim(xmin=-1.5, xmax=1.5)
+  import tikzplotlib
+  tikzplotlib.save("pie.tex")
+#+END_SRC
+#+LaTeX: \input{pie}
+
+* Publishing this file
+  In order to publish this file, you will need to configure use of an
+  alternative \LaTeX{} compiler due to certain options chosen. The
+  following will produce a pdf that looks somewhat like the image
+  below:
+  #+ATTR_LaTeX: :float nil :options fontsize=\tiny,frame=lines,bgcolor=mbg,linenos,xleftmargin=20pt,commentstyle=\bfseries
+  #+begin_src shell
+    docker run --rm -v $PWD:/org w08r/org-publishing:0.0.2 \
+           emacs --batch --eval '
+    (progn
+      (find-file "/org/011--py-pie.org")
+      (setq-default org-confirm-babel-evaluate nil)
+      (org-babel-do-load-languages
+       (quote org-babel-load-languages)
+       (quote ((emacs-lisp . t)
+               (python . t))))
+      (setq
+       org-latex-listings (quote minted)
+       org-latex-pdf-process
+       (list "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+      (org-latex-export-to-pdf))'
+  #+end_src
+  [[file:011--01.png][file:./011--01.png]]
+

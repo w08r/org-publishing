@@ -1,0 +1,98 @@
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmonofont{SourceCodePro-Regular}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage{garamondx}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \usepackage{fancyvrb}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \usepackage[x11names,dvipsnames,table]{xcolor} %for use in color links
+#+LATEX_HEADER: \usepackage{colortbl}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \rowcolors{1}{white}{Wheat1}
+#+LATEX_HEADER: \setlength\parindent{0pt}
+#+LATEX_HEADER: \setlength\parskip{1em}
+#+LATEX_HEADER: \rhead{John Doe Inc.}
+#+LATEX_HEADER: \fancyhead[L]{\leftmark}
+#+LATEX_HEADER: \fancyfoot[C]{}
+#+LATEX_HEADER: \fancyfoot[LO]{}
+#+LATEX_HEADER: \fancyfoot[R]{\thepage}
+#+LATEX_HEADER: \usepackage{lipsum}
+#+LATEX_HEADER: \usemintedstyle{solarized-light}
+#+LATEX_HEADER: \definecolor{mbg}{rgb}{.93,.91,.83}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepgfplotslibrary{groupplots,dateplot}
+#+LATEX_HEADER: \usetikzlibrary{patterns,shapes.arrows}
+#+LATEX_HEADER: \pgfplotsset{compat=newest}
+#+LATEX_HEADER: \usepackage{lipsum}
+
+#+AUTHOR: John Doe
+#+TITLE: Pretty, Oh so pretty ...
+* General layout
+  This file demonstrates using some top level Org config lines which
+  are passed straight through to the \LaTeX{} header. For example:
+  #+begin_example
+    ,#+LATEX_HEADER: \usepackage[T1]{fontenc}
+    ,#+LATEX_HEADER: \usepackage{garamondx}
+  #+end_example
+  Prettiness is obviously highlight subjective; the settings found in
+  the header of this file are those which I have accumulated over the
+  years as I tweak things here and there. Garamond is a nice font
+  which also happens to be easy to source through the texlive system,
+  and small adjustments to layout are just those which I personally
+  find make the output slightly more practical.
+
+  Being able to pass through the config in this way is very
+  convenient, especiaaly if you use a standard set of directives which
+  you can file away into a separate org file and just include in each
+  document, e.g.:
+  #+begin_example
+    ,#+INCLUDE: standard-doc-header.org
+  #+end_example
+* Source Code
+  One of the many great feature of Org mode is the ability to include
+  and easily maintain source code snippets from any of a number of
+  languages. These snippets can even be invoked inline to provide a
+  mega-powerful reproducible research environment. More on that later.
+
+  The following source code snippet has some inline \LaTeX{}
+  attributes attached to control precisely the look and feel of
+  it. The ~org-latex-listings-options~ and ~org-latex-minted-options~
+  variables can be used to control theses settings at a global level.
+  #+ATTR_LaTeX: :float nil :options fontsize=\tiny,frame=lines,bgcolor=mbg,linenos,xleftmargin=20pt,commentstyle=\bfseries
+  #+begin_src c
+    int main() {
+      return 0;
+    }
+  #+end_src
+* Tables
+  Org mode has a table editor which, when combined with calc mode,
+  provides the facility of a pretty powerful spreadsheet. Exporting
+  tables in a \LaTeX{} friendly manner is another boon available in
+  the space.
+  |    a |    b | c (2*a + b) |
+  |------+------+-------------|
+  |    0 |    1 |           1 |
+  | 2.78 | 3.14 |         8.7 |
+  #+TBLFM: $3=2*$1 + $2
+* Publishing this file
+  In order to publish this file, you will need to configure use of an
+  alternative \LaTeX{} compiler due to certain options chosen. The
+  following will produce a pdf that looks somewhat like the image
+  below:
+  #+ATTR_LaTeX: :float nil :options fontsize=\tiny,frame=lines,bgcolor=mbg,linenos,xleftmargin=20pt,commentstyle=\bfseries
+  #+begin_src shell
+    docker run --rm -v $PWD:/org w08r/org-publishing:0.0.2 \
+           emacs --batch --eval '
+       (progn
+         (find-file "/org/002--pretty.org")
+         (setq 
+           org-latex-listings (quote minted) 
+           org-latex-pdf-process
+             (list "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+         (org-latex-export-to-pdf))'
+    EOF
+  #+end_src
+  [[file:002--01.png][file:./002--01.png]]

@@ -22,7 +22,7 @@
    simplicity, a docker image is provided to enable an initial
    playground and can be used in the following way with this file:
    #+begin_src shell
-  docker run --rm -v $PWD:/org w08r/org-publishing:0.0.1 \
+  docker run --rm -v $PWD:/org w08r/org-publishing:0.0.2 \
    emacs --batch --eval '
      (progn
        (find-file "/org/001--hello-world.org")

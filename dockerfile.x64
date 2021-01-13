@@ -2,11 +2,20 @@
 FROM debian:buster-slim@sha256:b1af07039fe341833982bae85a2724ac8600ec5c74c37277c7a6ef7cddfb2cd0
 
 ## install emacs and TeX and add non-free fonts
-RUN apt update && apt install -y emacs texlive-latex-extra curl && \
+RUN apt update && apt install -y emacs texlive-latex-extra texlive-xetex curl && \
   mkdir /tmp/tex && cd /tmp/tex && \
   curl -O https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
   texlua install-getnonfreefonts && \
   getnonfreefonts --sys -a
+  
+## Add source code pro font from adobe
+RUN mkdir /tmp/adobe && cd /tmp/adobe && \
+  curl -LO https://github.com/adobe-fonts/source-code-pro/releases/download/2.032R-ro%2F1.052R-it%2F1.012R-VAR/OTF-source-code-pro-2.032R-ro-1.052R-it.zip && \
+  unzip *.zip && mkdir /usr/share/fonts/truetype/sourcecodepro/ && \
+  cp OTF/SourceCodePro-* /usr/share/fonts/truetype/sourcecodepro/ && \
+  fc-cache -f -v -r
 
 ## Add python and sqlite for demoing data analysis
-RUN apt install -y python3 sqlite3
+RUN apt install -y python3 sqlite3 python3-pygments pipenv
+
+RUN pip3 install pygments-style-solarized

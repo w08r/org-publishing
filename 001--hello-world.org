@@ -1,9 +1,30 @@
 #+AUTHOR: John Doe
 #+TITLE: Hello, World!\n
+* Level 1 Heading
+  This file contains a small amount of text to demonstrate the org
+  publishing workflow.
 
-This file contains a small amount of text to demonstrate the org
-publishing workflow.
+  [[https://raw.githubusercontent.com/will08rien/org-publishing/main/001--hello-world.org][As you can see]], there is nothing special about this file. Running it
+  through the generator command should yield a pdf that looks like
+  pretty standard \LaTeX{} output.
 
-As you can see, there is nothing special about this file. Running it
-through the generator command should yield a pdf that looks like
-pretty standard \LaTeX{} output.
+  [[file:001-01.png][file:./001-01.png]]
+
+** Level 2 Heading
+   The org headings translate to section titles within the output, thus
+   the already super-convenient authoring system available in Org allows
+   you to easily construct simple documents for redistribution without
+   fuss.
+
+** Generating PDF
+   As per the instructions in the top level README, this file can be
+   used to generate a PDF through the Org export mechanism. For
+   simplicity, a docker image is provided to enable an initial
+   playground and can be used in the following way with this file:
+   #+begin_src shell
+  docker run --rm -v $PWD:/org w08r/org-publishing:0.0.1 \
+   emacs --batch --eval '
+     (progn
+       (find-file "/org/001--hello-world.org")
+       (org-latex-export-to-pdf))'
+   #+end_src

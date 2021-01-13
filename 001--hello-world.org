@@ -1,0 +1,9 @@
+#+AUTHOR: John Doe
+#+TITLE: Hello, World!\n
+
+This file contains a small amount of text to demonstrate the org
+publishing workflow.
+
+As you can see, there is nothing special about this file. Running it
+through the generator command should yield a pdf that looks like
+pretty standard \LaTeX{} output.

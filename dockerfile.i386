@@ -1,0 +1,12 @@
+# Buster as of 2021-01-12
+FROM debian:buster-slim@sha256:0d18b52a1624d97d82ebffffbdb2537f9a740eb79fdad630745307a83d74f84d
+
+## install emacs and TeX and add non-free fonts
+RUN apt update && apt install -y emacs texlive-latex-extra curl && \
+  mkdir /tmp/tex && cd /tmp/tex && \
+  curl -O https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
+  texlua install-getnonfreefonts && \
+  getnonfreefonts --sys -a
+
+## Add python and sqlite for demoing data analysis
+RUN apt install -y python3 sqlite3

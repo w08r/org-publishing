@@ -32,33 +32,48 @@
 
 * Py-pie-demo
 
-This is a demo of using *Python* is ~Org~ to generate a *Pie Chart*.
+  This page demonstrates the use of Org mode in combination with
+  Python and tikz to generate a Pie chart. The source code listing
+  found below is actually executed during the `weaving` process;
+  generates a piece of `.tex` which is then embedded into the output
+  document to display the Pie chart. This begins to illustrate the
+  essense of reproducible research. The code can of course be used
+  directly from the published text to create the same pie chart by
+  reviewers etc.
 
-Note, for the \LaTeX{} output to work correctly, ensure the `%''s are
-correctly escaped in the python code.
+  As an aside, a pie chart was chosen for this as it turns out to be
+  strictly more powerful than any other chart and in fact represent
+  the same information with less wastage of paper all alternatives. It
+  is therefore an environmentally friendly option. I have a proof of
+  this theorem, but there is not enough space in this org file.
 
-#+ATTR_LaTeX: :float nil :options fontsize=\tiny,frame=lines,bgcolor=mbg,linenos,xleftmargin=20pt,commentstyle=\bfseries
-#+BEGIN_SRC python :exports both :python python3
-  import matplotlib.pyplot as plt
+  Note, for the \LaTeX{} output to work correctly, ensure the `%'s are
+  correctly escaped in the python code.
 
-  # Pie chart, where the slices will be ordered and plotted counter-clockwise:
-  labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
-  sizes = [15, 30, 45, 10]
-  explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
-
-  plt.style.use("ggplot")
-  plt.axis("off")
-  fig1, ax1 = plt.subplots()
-
-  ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f\\%%',
-          shadow=True, startangle=90)
-  ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-  ax1.set_ylim(ymin=-1.5, ymax=1.5)
-  ax1.set_xlim(xmin=-1.5, xmax=1.5)
-  import tikzplotlib
-  tikzplotlib.save("pie.tex")
-#+END_SRC
-#+LaTeX: \input{pie}
+  Note. The quintessential example below is taken from the tutorial
+  [[https://towardsdatascience.com/python-data-visualization-with-matplotlib-part-2-66f1307d42fb][here]]. Note also that it is clear that [[https://dilbert.com/strip/1995-11-17][mauve has the most ogs]].
+  #+ATTR_LaTeX: :float nil :options fontsize=\tiny,frame=lines,bgcolor=mbg,linenos,xleftmargin=20pt,commentstyle=\bfseries
+  #+BEGIN_SRC python :exports both :python python3
+    import matplotlib.pyplot as plt
+  
+    # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+    labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+    sizes = [15, 30, 45, 10]
+    explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+  
+    plt.style.use("ggplot")
+    plt.axis("off")
+    fig1, ax1 = plt.subplots()
+  
+    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f\\%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax1.set_ylim(ymin=-1.5, ymax=1.5)
+    ax1.set_xlim(xmin=-1.5, xmax=1.5)
+    import tikzplotlib
+    tikzplotlib.save("pie.tex")
+  #+END_SRC
+  #+LaTeX: \input{pie}
 
 * Publishing this file
   In order to publish this file, you will need to configure use of an

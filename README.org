@@ -1,11 +1,11 @@
 #+title: Org Publishing
 
-This repo contains my opinionated look at how to produce beautiful
-technical publications using the suite of tools that surround the
-Emacs package, Org mode[fn:1].
+This repository contains my opinionated look at how to produce
+beautiful technical publications using the suite of tools that
+surround the Emacs package, Org mode[fn:1].
 
-Each section in the guide is a self-executing `.org` file that can be
-executed to produce pdf output. The execution environment is described
+Each page in the guide is a self-executing `.org` file that can be
+"weaved" to produce pdf output. The execution environment is described
 by the Dockerfile which can be found at the top level of this
 repository: `dockerfile.XXX`. The associated image is built and can be
 obtained from docker hub.
@@ -13,12 +13,17 @@ obtained from docker hub.
 For example, to run the hello world org file, run the following:
 
 #+begin_src shell
-docker run --rm -v $PWD:/org w08r/org-publishing:0.0.2 \
-   emacs --batch --eval '
-     (progn
-       (find-file "/org/001--hello-world.org")
-       (org-latex-export-to-pdf))'
+  docker run --rm -v $PWD:/org w08r/org-publishing:0.0.2 \
+         emacs --batch --eval '
+       progn
+         (find-file "/org/001--hello-world.org")
+         (org-latex-export-to-pdf)'
 #+end_src
+
+The first 3 parts cover a 90mph overview of the features that will
+help to produce high quality *reproducible* output. The parts
+following will then provide a deep dive into some of the patterns used
+earlier and into Org mode workflow in general.
 
 * Contents
 ** Part 1 -- Hello Worlds
@@ -31,6 +36,9 @@ docker run --rm -v $PWD:/org w08r/org-publishing:0.0.2 \
   Contributions are welcome, please open an issue for discussion. Please be nice.
 * Footnotes
 
-[fn:1] Org mode is for keeping notes, maintaining to-do lists, planning projects, authoring documents, computational notebooks, literate programming and more — in a fast and effective plain text system. https://orgmode.org/
+[fn:1] Org mode is for keeping notes, maintaining to-do lists,
+planning projects, authoring documents, computational notebooks,
+literate programming and more — in a fast and effective plain text
+system. https://orgmode.org/
 
 

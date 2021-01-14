@@ -44,7 +44,7 @@
   find make the output slightly more practical.
 
   Being able to pass through the config in this way is very
-  convenient, especiaaly if you use a standard set of directives which
+  convenient, especially if you use a standard set of directives which
   you can file away into a separate org file and just include in each
   document, e.g.:
   #+begin_example
@@ -95,7 +95,3 @@
          (org-latex-export-to-pdf))'
   #+end_src
   [[file:002--01.png][file:./002--01.png]]
-
-#+BEGIN_SRC python
-import matplotlib
-#+END_SRC

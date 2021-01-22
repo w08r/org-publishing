@@ -26,13 +26,27 @@ following will then provide a deep dive into some of the patterns used
 earlier and into Org mode workflow in general.
 
 * Contents
-** Part 1 -- Hello Worlds
-  - [[file:./001--hello-world.org][Hello, World!]]
-  - [[file:./002--pretty.org][Pretty, oh so pretty...]]
-** Part 2 -- Reproducible Research
-  - [[file:./011--py-pie.org][Py pie]]
-** Part 3 -- Presentations with Beamer
-  - [[file:./021--death-by-beamer.org][Death by Beamer]]
+** Section A: Overview
+*** Part 1 -- Hello Worlds
+   - [[file:./001--hello-world.org][Hello, World!]]
+   - [[file:./002--pretty.org][Pretty, oh so pretty...]]
+*** Part 2 -- Reproducible Research
+   - [[file:./011--py-pie.org][Py pie]]
+*** Part 3 -- Presentations with Beamer
+   - [[file:./021--death-by-beamer.org][Death by Beamer]]
+** Section B: Detail
+*** Part 4 -- Org Mode
+    - TODO: Simple authoring
+    - TODO: Managing projects
+    - TODO: Babel
+    - TODO: Literate Programming
+*** Part 5 -- LaTeX
+    - TODO: Layout
+    - TODO: Typefaces
+    - TODO: Listings
+    - TODO: Tables
+    - TODO: tikz
+    - TODO: Beamer
 * Contributions
   Contributions are welcome, please open an issue for discussion. Please be nice.
 * Footnotes

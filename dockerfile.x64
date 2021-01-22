@@ -2,7 +2,8 @@
 FROM debian:buster-slim@sha256:b1af07039fe341833982bae85a2724ac8600ec5c74c37277c7a6ef7cddfb2cd0
 
 ## install emacs and TeX and add non-free fonts
-RUN apt update && apt install -y emacs texlive-latex-extra texlive-xetex curl && \
+RUN apt update && apt install -y emacs texlive-latex-extra texlive-xetex \
+      texlive-fonts-extra curl && \
   mkdir /tmp/tex && cd /tmp/tex && \
   curl -O https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
   texlua install-getnonfreefonts && \

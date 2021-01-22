@@ -32,6 +32,7 @@ earlier and into Org mode workflow in general.
 ** Part 2 -- Reproducible Research
   - [[file:./011--py-pie.org][Py pie]]
 ** Part 3 -- Presentations with Beamer
+  - [[file:./021--death-by-beamer.org][Death by Beamer]]
 * Contributions
   Contributions are welcome, please open an issue for discussion. Please be nice.
 * Footnotes

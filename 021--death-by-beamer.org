@@ -1,0 +1,63 @@
+#+TITLE:     Demo Pres
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+
+#+STARTUP: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger,table,x11names,dvipsnames]
+
+#+BEAMER_THEME: metropolis
+
+#+LATEX_HEADER: \usefonttheme{professionalfonts}
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmonofont{SourceCodePro-Regular}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \setbeamertemplate{itemize items}[circle]
+#+LATEX_HEADER: \usepackage[default,osfigures,scale=0.95]{opensans}
+
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{colortbl}
+#+LATEX_HEADER: \rowcolors{1}{white}{Wheat1}
+
+#+BEAMER_FRAME_LEVEL: 2
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+* Top Level Section
+** Internal Section
+*** Slide 1
+- This file demonstrates how a simple org file can be used to *easily*
+  produce beautiful presentations using beamer.
+*** Slide 2
+    The following will demonstrate use of beamer to produce a set of
+    slides based on this org file.
+  #+ATTR_LaTeX: :float nil :options fontsize=\tiny,frame=lines,bgcolor=mbg,linenos,xleftmargin=20pt,commentstyle=\bfseries
+  #+begin_src shell
+docker run --rm -v $PWD:/org w08r/org-publishing:0.0.3 \
+           emacs --batch --eval '
+    (progn
+      (find-file "/org/021--death-by-beamer.org")
+      (setq-default org-confirm-babel-evaluate nil)
+      (org-babel-do-load-languages
+       (quote org-babel-load-languages)
+       (quote ((emacs-lisp . t)
+               (python . t))))
+      (setq
+       org-latex-listings (quote minted)
+       org-latex-pdf-process
+       (list "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+      (org-beamer-export-to-pdf))'
+  #+end_src
+*** Slide 3
+The presentation looks a bit like this
+[[file:021--01.png][file:./021--01.png]]
+
